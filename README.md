@@ -8,9 +8,8 @@ You can setup your own config in [config](./config) folder and [docker-compose.y
 
 
 - [GTP5G kernel module](https://github.com/free5gc/gtp5g): needed to run the UPF
-- [Docker Engine](https://docs.docker.com/engine/install): needed to run the Free5GC containers
+- [Docker Engine](https://docs.docker.com/engine/install) or [Podman](https://podman.io/): needed to run the Free5GC containers
 - [Docker Compose](https://docs.docker.com/compose/install): needed to bootstrap the Free5GC stack
-
 ## Start Free5gc
 
 Because we need to create tunnel interface, we need to use privileged container with root permission.
@@ -21,7 +20,7 @@ git clone https://github.com/free5gc/free5gc-compose.git
 cd free5gc-compose
 
 # Build the images
-make base
+make docker|podman
 docker-compose build
 
 # Run it
@@ -42,7 +41,7 @@ docker exec -it mongodb mongo
 You can see logs for each service using `docker logs` command. For example, to access the logs of the *SMF* you can use:
 
 ```console
-docker logs smf
+docker|podman logs smf
 ```
 
 Please refer to the [wiki](https://github.com/free5gc/free5gc/wiki) for more troubleshooting information.
