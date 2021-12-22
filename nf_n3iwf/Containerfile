@@ -11,7 +11,9 @@ ARG DEBUG_TOOLS
 RUN if [ "$DEBUG_TOOLS" = "true" ] ; then yum -y install vim strace net-tools iputils nmap-ncat && yum clean all ; fi
 
 # Install N3IWF dependencies
-RUN apk add -U iproute2
+RUN yum -y update \
+    && yum -y install iproute \
+    && yum clean all
 
 # Set working dir
 WORKDIR /free5gc

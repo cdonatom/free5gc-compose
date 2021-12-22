@@ -1,0 +1,29 @@
+FROM registry.access.redhat.com/ubi8/ubi:latest AS builder
+
+LABEL maintainer="Carlos Donato <cdonato@redhat.com>"
+
+# Install dependencies
+RUN yum -y update \
+    && yum -y install lksctp-tools-devel lksctp-tools iproute cmake gcc git gcc-c++\
+    && git clone -b master -j `nproc` https://github.com/aligungr/UERANSIM \
+    && cd ./UERANSIM \
+    && make -j`nproc` 
+
+FROM registry.access.redhat.com/ubi8/ubi:latest
+
+# Install runtime dependencies + ping
+RUN yum -y update \
+    && yum -y install lksctp-tools-devel lksctp-tools iproute iputils\
+    && yum clean all
+
+WORKDIR /ueransim
+
+RUN mkdir -p config/ binder/
+
+COPY --from=builder /UERANSIM/build/nr-gnb .
+COPY --from=builder /UERANSIM/build/nr-ue .
+COPY --from=builder /UERANSIM/build/nr-cli .
+COPY --from=builder /UERANSIM/build/nr-binder binder/
+COPY --from=builder /UERANSIM/build/libdevbnd.so binder/
+
+VOLUME [ "/ueransim/config" ]
