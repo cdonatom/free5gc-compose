@@ -9,8 +9,8 @@ services:
         DEBUG_TOOLS: "false"
     command: bash -c "./upf-iptables.sh && ./free5gc-upfd -f /free5gc/config/upfcfg.yaml"
     volumes:
-      - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml
-      - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh
+            - ./config/upfcfg.yaml:/free5gc/config/upfcfg.yaml:Z
+            - ./config/upf-iptables.sh:/free5gc/free5gc-upfd/upf-iptables.sh:Z
     cap_add:
       - NET_ADMIN
 
@@ -33,7 +33,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/nrfcfg.yaml:/free5gc/config/nrfcfg.yaml
+            - ./config/nrfcfg.yaml:/free5gc/config/nrfcfg.yaml:Z
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -50,7 +50,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/amfcfg.yaml:/free5gc/config/amfcfg.yaml
+            - ./config/amfcfg.yaml:/free5gc/config/amfcfg.yaml:Z
     environment:
       GIN_MODE: release
     depends_on:
@@ -66,7 +66,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/ausfcfg.yaml:/free5gc/config/ausfcfg.yaml
+            - ./config/ausfcfg.yaml:/free5gc/config/ausfcfg.yaml:Z
     environment:
       GIN_MODE: release
     depends_on:
@@ -82,7 +82,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/nssfcfg.yaml:/free5gc/config/nssfcfg.yaml
+            - ./config/nssfcfg.yaml:/free5gc/config/nssfcfg.yaml:Z
     environment:
       GIN_MODE: release
     depends_on:
@@ -98,7 +98,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/pcfcfg.yaml:/free5gc/config/pcfcfg.yaml
+            - ./config/pcfcfg.yaml:/free5gc/config/pcfcfg.yaml:Z
     environment:
       GIN_MODE: release
     depends_on:
@@ -114,8 +114,8 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/smfcfg.yaml:/free5gc/config/smfcfg.yaml
-      - ./config/uerouting.yaml:/free5gc/config/uerouting.yaml
+            - ./config/smfcfg.yaml:/free5gc/config/smfcfg.yaml:Z
+            - ./config/uerouting.yaml:/free5gc/config/uerouting.yaml:Z
     environment:
       GIN_MODE: release
     depends_on:
@@ -128,11 +128,11 @@ services:
       context: ./nf_udm
       args:
         DEBUG_TOOLS: "false"
-    command: ./udm -udmcfg /free5gc/config/udmcfg.yaml
+        command: ./udm -udmcfg /free5gc/config/udmcfg.yaml:Z
     expose:
       - "8000"
     volumes:
-      - ./config/udmcfg.yaml:/free5gc/config/udmcfg.yaml
+            - ./config/udmcfg.yaml:/free5gc/config/udmcfg.yaml:Z
     environment:
       GIN_MODE: release
     depends_on:
@@ -149,7 +149,7 @@ services:
     expose:
       - "8000"
     volumes:
-      - ./config/udrcfg.yaml:/free5gc/config/udrcfg.yaml
+            - ./config/udrcfg.yaml:/free5gc/config/udrcfg.yaml:Z
     environment:
       DB_URI: mongodb://db/free5gc
       GIN_MODE: release
@@ -165,8 +165,8 @@ services:
         DEBUG_TOOLS: "false"
     command: sh -c "./n3iwf-ipsec.sh && ./n3iwf -n3iwfcfg /free5gc/config/n3iwfcfg.yaml"
     volumes:
-      - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml
-      - ./config/n3iwf-ipsec.sh:/free5gc/n3iwf/n3iwf-ipsec.sh
+            - ./config/n3iwfcfg.yaml:/free5gc/config/n3iwfcfg.yaml:Z
+            - ./config/n3iwf-ipsec.sh:/free5gc/n3iwf/n3iwf-ipsec.sh:Z
     environment:
       GIN_MODE: release
     cap_add:
@@ -184,7 +184,7 @@ services:
         DEBUG_TOOLS: "false"
     command: ./webui
     volumes:
-      - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml
+            - ./config/webuicfg.yaml:/free5gc/config/webuicfg.yaml:Z
     environment:
       - GIN_MODE=release
     ports:
@@ -198,8 +198,8 @@ services:
       context: ./ueransim
     command: ./nr-gnb -c ./config/gnbcfg.yaml
     volumes:
-      - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml
-      - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml
+            - ./config/gnbcfg.yaml:/ueransim/config/gnbcfg.yaml:Z
+            - ./config/uecfg.yaml:/ueransim/config/uecfg.yaml:Z
     cap_add:
       - NET_ADMIN
     devices:
