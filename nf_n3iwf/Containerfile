@@ -12,7 +12,7 @@ RUN if [ "$DEBUG_TOOLS" = "true" ] ; then yum -y install vim strace net-tools ip
 
 # Install N3IWF dependencies
 RUN yum -y update \
-    && yum -y install iproute \
+    && yum -y install iproute hostname \
     && yum clean all
 
 # Set working dir
