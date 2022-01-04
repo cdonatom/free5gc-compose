@@ -103,7 +103,7 @@ logger:
     debugLevel: info
     ReportCaller: false
   NGAP:
-    debugLevel: info
+    debugLevel: debug
     ReportCaller: false
   Aper:
     debugLevel: info
